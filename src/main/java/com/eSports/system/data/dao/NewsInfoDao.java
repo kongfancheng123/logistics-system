@@ -1,7 +1,6 @@
 package com.eSports.system.data.dao;
 
 import com.eSports.system.data.entity.NewsInfo;
-import com.eSports.system.data.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

@@ -29,7 +29,7 @@ public interface GameInfoService {
      * @param gameInfo
      * @return
      */
-    List<UserInfo> selectByGameInfo(GameInfo gameInfo);
+    List<GameInfo> selectByGameInfo(GameInfo gameInfo);
 
     /**
      * 更新

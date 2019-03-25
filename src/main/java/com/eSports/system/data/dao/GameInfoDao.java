@@ -1,7 +1,6 @@
 package com.eSports.system.data.dao;
 
 import com.eSports.system.data.entity.GameInfo;
-import com.eSports.system.data.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +30,7 @@ public interface GameInfoDao {
      * @param gameInfo
      * @return
      */
-    List<UserInfo> selectByGameInfo(@Param("gameInfo") GameInfo gameInfo);
+    List<GameInfo> selectByGameInfo(@Param("gameInfo") GameInfo gameInfo);
 
     /**
      * 更新

@@ -25,7 +25,7 @@ public class GameInfoServiceImpl implements GameInfoService {
     }
 
     @Override
-    public List<UserInfo> selectByGameInfo(GameInfo gameInfo) {
+    public List<GameInfo> selectByGameInfo(GameInfo gameInfo) {
         return gameInfoDao.selectByGameInfo(gameInfo);
     }
 
