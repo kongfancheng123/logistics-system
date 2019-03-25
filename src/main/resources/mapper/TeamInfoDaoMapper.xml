@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eSports.system.data.dao.TeamInfoDao">
+    <resultMap id="BaseResultMap" type="com.eSports.system.data.entity.TeamInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="team_desc" jdbcType="VARCHAR" property="teamDesc"/>
+    </resultMap>
+
+    <insert id="insertTeamInfo" parameterType="com.eSports.system.data.entity.TeamInfo">
+         insert into ess_team_info
+        (
+        team_name,
+        team_desc
+        )values
+            (
+            #{teamInfo.teamName},
+            #{teamInfo.teamDesc}
+            )
+    </insert>
+
+    <delete id="deleteTeamInfo" parameterType="integer">
+        delete from ess_team_info
+        where id=#{id}
+    </delete>
+
+    <select id="selectByTeamInfo" parameterType="com.eSports.system.data.entity.TeamInfo"
+            resultMap="BaseResultMap">
+        select *
+        from ess_team_info
+        where 1=1
+        <if test="teamInfo.id != null">
+            and id = #{teamInfo.id}
+        </if>
+        <if test="teamInfo.teamName != null">
+            and team_name = #{teamInfo.teamName}
+        </if>
+        <if test="teamInfo.teamDesc != null">
+            and team_desc = #{teamInfo.teamDesc}
+        </if>
+        order by id
+    </select>
+
+    <update id="updateTeamInfo" parameterType="com.eSports.system.data.entity.TeamInfo">
+        UPDATE ess_team_info
+        <set>
+            <if test="teamInfo.teamName != null">
+                team_name = #{teamInfo.teamName},
+            </if>
+            <if test="teamInfo.teamDesc != null">
+                team_desc = #{teamInfo.teamDesc},
+            </if>
+        </set>
+        WHERE id=#{teamInfo.id}
+
+    </update>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from ess_team_info
+        order by id
+    </select>
+
+    <select id="selectByid" resultMap="BaseResultMap">
+        select * from ess_team_info
+        where id=#{id}
+    </select>
+
+
+</mapper>

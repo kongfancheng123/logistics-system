@@ -53,7 +53,7 @@
                 password = #{userInfo.password},
             </if>
         </set>
-        WHERE id=#{leaguerInfo.id}
+        WHERE id=#{userInfo.id}
 
     </update>
 
