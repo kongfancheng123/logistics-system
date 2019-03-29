@@ -1,6 +1,13 @@
 // 引入配置中导出的对象
 import { instance } from '@/axiosConfig.js'
 
+// 登录
+let login = {
+    r: params => {
+    return instance.post('/UserInfo/login', params)
+ }
+}
+
 // 获取所有表格数据
 let getTabData = {
   r: params => {
@@ -100,6 +107,7 @@ let switchData = {
   }
 }
 export {
+  login,
   getTabData,
   getUpNodeData,
   getEquipmentTypeData,

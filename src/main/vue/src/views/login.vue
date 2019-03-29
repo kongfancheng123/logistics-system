@@ -4,7 +4,7 @@
     <el-header>
       <img src="@/assets/logo.png"
            width="300">
-      <span>ATM8000</span>数据模拟平台
+      <span>ATM8000</span>数据模拟平台666
     </el-header>
     <router-view></router-view>
     <!-- el-main -->
@@ -40,27 +40,25 @@
     </el-main>
 
     <!-- el-footer -->
-    <el-footer>版权所有 苏州光格设备有限公司 苏ICP备14003533-1号</el-footer>
+    <!--<el-footer>版权所有 苏州光格设备有限公司 苏ICP备14003533-1号</el-footer>-->
   </el-container>
 </template>
 
 <script>
+import * as AJAX from '@/api/comprehensive/comprehensive.js'
+
 export default {
   name: 'app',
   data() {
     let checkName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('名字不能为空'))
-      } else if (value !== 'atm8000') {
-        return callback(new Error('用户名不对'))
       }
       callback()
     }
     let checkPass = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('密码不能为空'))
-      } else if (value !== 'agioe123456') {
-        return callback(new Error('密码不对'))
       }
       callback()
     }
@@ -80,8 +78,14 @@ export default {
       let vm = this
       vm.$refs[formName].validate(valid => {
         if (valid) {
-          // 密码账号正确，跳转内页
-          vm.$router.push({ path: '/comprehensive' })
+            AJAX.login.r({userName:vm.formLogin.name,password:vm.formLogin.pass}).then(res=>{
+                   console.log(res.data.code)
+                   if(res.data.code===200){
+                        // 密码账号正确，跳转内页
+                        vm.$router.push({ path: '/comprehensive' })
+                   }
+            })
+
         } else {
           console.log('error submit!!')
           return false
