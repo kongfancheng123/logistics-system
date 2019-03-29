@@ -1,8 +1,6 @@
 package com.eSports.system.data.service;
 
 import com.eSports.system.data.entity.GameInfo;
-import com.eSports.system.data.entity.UserInfo;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.eSports.system.data.service.impl;
 
 import com.eSports.system.data.dao.GameInfoDao;
 import com.eSports.system.data.entity.GameInfo;
-import com.eSports.system.data.entity.UserInfo;
 import com.eSports.system.data.service.GameInfoService;
 import org.springframework.stereotype.Service;
 

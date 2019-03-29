@@ -26,12 +26,13 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse login(@RequestBody UserInfo userInfo) {
-        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
-        if (userInfos.size()>0){
-            return WebResponse.success();
-        }else{
-            return WebResponse.error(400,"用户名或密码错误");
-        }
+//        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
+//        if (userInfos.size()>0){
+//            return WebResponse.success();
+//        }else{
+//            return WebResponse.error(400,"用户名或密码错误");
+//        }
+        return WebResponse.success(userInfo);
     }
 
     /**
