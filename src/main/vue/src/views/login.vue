@@ -35,6 +35,12 @@
                        class="login"
                        @click="submitForm('formLogin')">登 录</el-button>
           </el-form-item>
+
+          <el-form-item>
+                <el-button type="primary"
+                                 class="login"
+                                 @click="register('formLogin')">注册</el-button>
+               </el-form-item>
         </el-form>
       </div>
     </el-main>
@@ -45,7 +51,7 @@
 </template>
 
 <script>
-import * as AJAX from '@/api/comprehensive/comprehensive.js'
+import * as AJAX from '@/api/comprehensive/user.js'
 
 export default {
   name: 'app',
@@ -79,19 +85,55 @@ export default {
       vm.$refs[formName].validate(valid => {
         if (valid) {
             AJAX.login.r({userName:vm.formLogin.name,password:vm.formLogin.pass}).then(res=>{
-                   console.log(res.data.code)
+                   let data = res.data.data
                    if(res.data.code===200){
-                        // 密码账号正确，跳转内页
-                        vm.$router.push({ path: '/comprehensive' })
+                        console.log(JSON.stringify(data))
+                       vm.setCookie('user',JSON.stringify(data))
+                       // 密码账号正确，跳转内页
+                      vm.$router.push({ path: '/game' })
+                   }else{
+                        vm.$message.error("用户名或密码错误")
                    }
             })
 
         } else {
+
           console.log('error submit!!')
           return false
         }
       })
-    }
+    },
+
+     setCookie(name,value){
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    },
+
+    register(formName) {
+          let vm = this
+          vm.$refs[formName].validate(valid => {
+            if (valid) {
+                AJAX.addUser.r({userName:vm.formLogin.name,password:vm.formLogin.pass}).then(res=>{
+                       console.log(res.data.code)
+                       if(res.data.code===200){
+                            // 密码账号正确，跳转内页
+                            vm.$message.success("注册成功,请重新登录")
+                            //vm.$router.push({ path: '/login' })
+                       }else{
+                            vm.$message.error("用户名已存在")
+
+                       }
+                })
+
+            } else {
+
+              console.log('error submit!!')
+              return false
+            }
+          })
+        },
   }
 }
 </script>

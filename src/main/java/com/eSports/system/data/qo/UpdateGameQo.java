@@ -1,18 +1,15 @@
-package com.eSports.system.data.entity;
+package com.eSports.system.data.qo;
 
 import lombok.Data;
 
-import java.util.Date;
-
-
 @Data
-public class GameInfo {
+public class UpdateGameQo {
     /**
      * id
      */
     private Integer id;
     /**
-     * 赛事简称
+     * 赛事名
      */
     private String gameName;
     /**
@@ -22,6 +19,5 @@ public class GameInfo {
     /**
      * 赛事时间
      */
-    private Date gameTime;
-
+    private String gameTime;
 }

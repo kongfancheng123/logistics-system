@@ -17,4 +17,8 @@ public class UserInfo {
      * 密码
      */
     private String password;
+    /**
+     * 用户角色  0普通用户  1管理员
+     */
+    private Integer userRole;
 }

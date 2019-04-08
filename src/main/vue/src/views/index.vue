@@ -12,27 +12,22 @@
                  :default-active="$route.path"
                  class="el-menu-demo"
                  mode="horizontal">
-          <el-menu-item index="/comprehensive"
+          <el-menu-item index="/game"
                         route>
-            <i class="el-icon-picture"></i>综合展示</el-menu-item>
+            <i class="el-icon-picture"></i>赛事</el-menu-item>
 
-          <el-submenu index="2">
-            <template slot="title">系统配置</template>
-            <el-menu-item index="/systemConfig">基础设置</el-menu-item>
-            <el-submenu index="">
-              <template slot="title">设备信息</template>
-              <el-menu-item index="/systemConfig/equipmentType">设备类型</el-menu-item>
-              <el-menu-item index="/systemConfig/equipmentSignal">设备监控信号</el-menu-item>
-              <el-menu-item index="/systemConfig/equipmentSignalTemplate">监控信号模板</el-menu-item>
-              <el-menu-item index="/systemConfig/equipmentTemplateRelation">信号模板关联</el-menu-item>
-              <el-menu-item index="/systemConfig/upperNodeInfo">上层节点信息</el-menu-item>
-              <el-menu-item index="/systemConfig/equipmentInfo">设备信息</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-
-          <el-menu-item index="/log"
+          <el-menu-item index="/team"
                         route>
-            <i class="el-icon-tickets"></i>实时日志</el-menu-item>
+            <i class="el-icon-picture"></i>战队</el-menu-item>
+
+          <el-menu-item index="/news"
+                                    route>
+            <i class="el-icon-picture"></i>新闻</el-menu-item>
+
+          <el-menu-item index="/user"
+                                               route>
+             <i class="el-icon-picture"></i>用户</el-menu-item>
+
         </el-menu>
       </div>
 

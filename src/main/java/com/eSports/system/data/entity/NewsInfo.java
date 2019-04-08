@@ -16,4 +16,5 @@ public class NewsInfo {
      * 新闻描述
      */
     private String newsDesc;
+
 }

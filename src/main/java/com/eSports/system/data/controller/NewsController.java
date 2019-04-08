@@ -1,18 +1,17 @@
 package com.eSports.system.data.controller;
 
-import com.eSports.system.data.entity.GameInfo;
 import com.eSports.system.data.entity.NewsInfo;
 import com.eSports.system.data.entity.WebResponse;
-import com.eSports.system.data.service.GameInfoService;
+import com.eSports.system.data.page.PageBean;
+import com.eSports.system.data.qo.SelectByNewsInfoQo;
 import com.eSports.system.data.service.NewsInfoService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * Create by fchkong on 2019/3/25.
- */
+
 @RestController
 @RequestMapping(value = "/NewsInfo")
 public class NewsController {
@@ -45,9 +44,18 @@ public class NewsController {
      */
     @RequestMapping(value = "/selectByNewsInfo", method = RequestMethod.POST)
     @ResponseBody
-    public WebResponse selectByNewsInfo(@RequestBody NewsInfo newsInfo) {
+    public WebResponse selectByNewsInfo(@RequestBody SelectByNewsInfoQo selectByNewsInfoQo) {
+
+        Integer pageNow = selectByNewsInfoQo.getPageNow();
+        Integer pageSize = selectByNewsInfoQo.getPageSize();
+        Integer countNums = newsInfoService.selectAll().size();
+        NewsInfo newsInfo=new NewsInfo();
+        PageHelper.startPage(pageNow, pageSize);
         List<NewsInfo> newsInfos = newsInfoService.selectByNewsInfo(newsInfo);
-        return WebResponse.success(newsInfos);
+        PageBean<NewsInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);
+        pageData.setItems(newsInfos);
+
+        return WebResponse.success(pageData);
     }
 
     /**
@@ -56,17 +64,17 @@ public class NewsController {
     @RequestMapping(value = "/updateNews", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse updateNews(@RequestBody NewsInfo newsInfo) {
-        Integer integer = newsInfoService.updateNewsInfo(newsInfo);
+//        Integer integer = newsInfoService.updateNewsInfo(newsInfo);
         return WebResponse.success();
     }
 
     /**
      * 删除新闻
      */
-    @RequestMapping(value = "/deleteNews", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
     @ResponseBody
-    public WebResponse deleteNews(@RequestParam Integer id) {
-        Integer integer = newsInfoService.deleteNewsInfo(id);
+    public WebResponse deleteNews(@RequestBody NewsInfo newsInfo) {
+//        Integer integer = newsInfoService.deleteNewsInfo(newsInfo.getId());
         return WebResponse.success();
     }
 

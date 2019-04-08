@@ -1,18 +1,18 @@
-package com.eSports.system.data.entity;
+package com.eSports.system.data.Vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
-
+/**
+ * Create by fchkong on 2019/4/2.
+ */
 @Data
-public class GameInfo {
+public class GameInfoVo {
     /**
      * id
      */
     private Integer id;
     /**
-     * 赛事简称
+     * 赛事名称
      */
     private String gameName;
     /**
@@ -22,6 +22,5 @@ public class GameInfo {
     /**
      * 赛事时间
      */
-    private Date gameTime;
-
+    private String gameTime;
 }

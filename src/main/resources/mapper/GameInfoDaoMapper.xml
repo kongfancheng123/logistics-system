@@ -7,17 +7,20 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="game_name" jdbcType="VARCHAR" property="gameName"/>
         <result column="game_desc" jdbcType="VARCHAR" property="gameDesc"/>
+        <result column="game_time" jdbcType="TIMESTAMP" property="gameTime"/>
     </resultMap>
 
     <insert id="insertGameInfo" parameterType="com.eSports.system.data.entity.GameInfo">
          insert into ess_game_info
         (
         game_name,
-        game_desc
+        game_desc,
+        game_time
         )values
             (
             #{gameInfo.gameName},
-            #{gameInfo.gameDesc}
+            #{gameInfo.gameDesc},
+            #{gameInfo.gameTime}
             )
     </insert>
 
@@ -40,6 +43,9 @@
         <if test="gameInfo.gameDesc != null">
             and game_desc = #{gameInfo.gameDesc}
         </if>
+        <if test="gameInfo.gameTime != null">
+            and game_time = #{gameInfo.gameTime}
+        </if>
         order by id
     </select>
 
@@ -51,6 +57,9 @@
             </if>
             <if test="gameInfo.gameDesc != null">
                 game_desc = #{gameInfo.gameDesc},
+            </if>
+            <if test="gameInfo.gameTime != null">
+                game_time = #{gameInfo.gameTime},
             </if>
         </set>
         WHERE id=#{gameInfo.id}

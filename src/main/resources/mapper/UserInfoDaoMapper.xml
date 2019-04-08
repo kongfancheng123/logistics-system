@@ -7,17 +7,20 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="user_role" jdbcType="INTEGER" property="userRole"/>
     </resultMap>
 
     <insert id="insertUserInfo" parameterType="com.eSports.system.data.entity.UserInfo">
          insert into ess_user_info
         (
         user_name,
-        password
+        password,
+        user_role
         )values
             (
             #{userInfo.userName},
-            #{userInfo.password}
+            #{userInfo.password},
+            #{userInfo.userRole}
             )
     </insert>
 
@@ -40,6 +43,9 @@
         <if test="userInfo.password != null">
             and password = #{userInfo.password}
         </if>
+        <if test="userInfo.userRole != null">
+            and user_role = #{userInfo.userRole}
+        </if>
         order by id
     </select>
 
@@ -51,6 +57,9 @@
             </if>
             <if test="userInfo.password != null">
                 password = #{userInfo.password},
+            </if>
+            <if test="userInfo.userRole != null">
+                user_role = #{userInfo.userRole},
             </if>
         </set>
         WHERE id=#{userInfo.id}
