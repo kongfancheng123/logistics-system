@@ -2,9 +2,7 @@ package com.eSports.system.data.Vo;
 
 import lombok.Data;
 
-/**
- * Create by fchkong on 2019/4/2.
- */
+
 @Data
 public class GameInfoVo {
     /**

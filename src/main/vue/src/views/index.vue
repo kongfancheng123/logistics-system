@@ -24,7 +24,7 @@
                                     route>
             <i class="el-icon-picture"></i>新闻</el-menu-item>
 
-          <el-menu-item index="/user"
+          <el-menu-item index="/user"   v-if='user.isSuperUser===1'
                                                route>
              <i class="el-icon-picture"></i>用户</el-menu-item>
 
@@ -46,7 +46,24 @@ export default {
   name: 'index',
   data() {
     return {}
-  }
+  },
+  created() {
+        let vm = this
+        vm.user = JSON.parse(vm.getCookie('user'))
+        console.log(vm.user)
+        //vm.getReadyData()
+      },
+     methods: {
+          getCookie(name){
+                    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+                    if(arr=document.cookie.match(reg)){
+                      return unescape(arr[2]);
+                    } else{
+                     return null;}
+
+                }
+
+      }
 }
 </script>
 <style>

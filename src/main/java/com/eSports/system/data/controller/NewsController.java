@@ -50,6 +50,7 @@ public class NewsController {
         Integer pageSize = selectByNewsInfoQo.getPageSize();
         Integer countNums = newsInfoService.selectAll().size();
         NewsInfo newsInfo=new NewsInfo();
+        newsInfo.setNewsName(selectByNewsInfoQo.getNewsName());
         PageHelper.startPage(pageNow, pageSize);
         List<NewsInfo> newsInfos = newsInfoService.selectByNewsInfo(newsInfo);
         PageBean<NewsInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);
@@ -64,7 +65,7 @@ public class NewsController {
     @RequestMapping(value = "/updateNews", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse updateNews(@RequestBody NewsInfo newsInfo) {
-//        Integer integer = newsInfoService.updateNewsInfo(newsInfo);
+        Integer integer = newsInfoService.updateNewsInfo(newsInfo);
         return WebResponse.success();
     }
 
@@ -74,7 +75,7 @@ public class NewsController {
     @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse deleteNews(@RequestBody NewsInfo newsInfo) {
-//        Integer integer = newsInfoService.deleteNewsInfo(newsInfo.getId());
+        Integer integer = newsInfoService.deleteNewsInfo(newsInfo.getId());
         return WebResponse.success();
     }
 

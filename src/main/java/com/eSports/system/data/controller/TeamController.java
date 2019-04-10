@@ -1,16 +1,14 @@
 package com.eSports.system.data.controller;
 
-import com.eSports.system.data.entity.GameInfo;
-import com.eSports.system.data.entity.NewsInfo;
 import com.eSports.system.data.entity.TeamInfo;
 import com.eSports.system.data.entity.WebResponse;
 import com.eSports.system.data.page.PageBean;
-import com.eSports.system.data.service.GameInfoService;
+import com.eSports.system.data.qo.SelectByTeamInfoQo;
 import com.eSports.system.data.service.TeamInfoService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,7 +24,7 @@ public class TeamController {
     @RequestMapping(value = "/addTeam", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse addTeam(@RequestBody TeamInfo teamInfo) {
-//        Integer integer = teamInfoService.insertTeamInfo(teamInfo);
+        Integer integer = teamInfoService.insertTeamInfo(teamInfo);
         return WebResponse.success();
     }
 
@@ -45,23 +43,15 @@ public class TeamController {
      */
     @RequestMapping(value = "/selectByTeamInfo", method = RequestMethod.POST)
     @ResponseBody
-    public WebResponse selectByTeamInfo(@RequestBody TeamInfo teamInfo) {
-//        List<TeamInfo> teamInfos = teamInfoService.selectByTeamInfo(teamInfo);
-        List<TeamInfo> teamInfos=new ArrayList<>();
-        TeamInfo teamInfo1=new TeamInfo();
-        teamInfo1.setId(1);
-        teamInfo1.setTeamName("湖人");
-        teamInfo1.setTeamDesc("这是一支历史悠久的战队");
-
-        TeamInfo teamInfo2=new TeamInfo();
-        teamInfo2.setId(2);
-        teamInfo2.setTeamName("凯尔特人");
-        teamInfo2.setTeamDesc("这是一支历史悠久的战队1111");
-
-        teamInfos.add(teamInfo1);
-        teamInfos.add(teamInfo2);
-
-        PageBean<TeamInfo> pageData = new PageBean<>(1, 30, 2);
+    public WebResponse selectByTeamInfo(@RequestBody SelectByTeamInfoQo selectByTeamInfoQo) {
+        Integer pageNow = selectByTeamInfoQo.getPageNow();
+        Integer pageSize = selectByTeamInfoQo.getPageSize();
+        Integer countNums = teamInfoService.selectAll().size();
+        TeamInfo teamInfo=new TeamInfo();
+        teamInfo.setTeamName(selectByTeamInfoQo.getTeamName());
+        PageHelper.startPage(pageNow, pageSize);
+        List<TeamInfo> teamInfos = teamInfoService.selectByTeamInfo(teamInfo);
+        PageBean<TeamInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);
         pageData.setItems(teamInfos);
 
         return WebResponse.success(pageData);
@@ -73,7 +63,7 @@ public class TeamController {
     @RequestMapping(value = "/updateTeam", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse updateTeam(@RequestBody TeamInfo teamInfo) {
-//        Integer integer = teamInfoService.updateTeamInfo(teamInfo);
+        Integer integer = teamInfoService.updateTeamInfo(teamInfo);
         return WebResponse.success();
     }
 
@@ -83,7 +73,7 @@ public class TeamController {
     @RequestMapping(value = "/deleteTeam", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse deleteTeam(@RequestBody TeamInfo teamInfo) {
-//        Integer integer = teamInfoService.deleteTeamInfo(teamInfo.getId());
+        Integer integer = teamInfoService.deleteTeamInfo(teamInfo.getId());
         return WebResponse.success();
     }
 

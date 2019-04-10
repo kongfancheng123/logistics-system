@@ -3,11 +3,12 @@ package com.eSports.system.data.controller;
 import com.eSports.system.data.entity.UserInfo;
 import com.eSports.system.data.entity.WebResponse;
 import com.eSports.system.data.page.PageBean;
+import com.eSports.system.data.qo.SelectByUserInfoQo;
 import com.eSports.system.data.service.UserInfoService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,16 +26,12 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse login(@RequestBody UserInfo userInfo) {
-        userInfo.setId(1);
-        userInfo.setUserRole(0);
-//        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
-//        if (userInfos.size()>0){
-//            return WebResponse.success();
-//        }else{
-//            return WebResponse.error(400,"用户名或密码错误");
-//        }
-//        return WebResponse.success(userInfo);
-        return WebResponse.error(400,"用户名或密码错误");
+        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
+        if (userInfos.size()>0){
+            return WebResponse.success(userInfos.get(0));
+        }else{
+            return WebResponse.error(400,"用户名或密码错误");
+        }
     }
 
     /**
@@ -43,10 +40,17 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse register(@RequestBody UserInfo userInfo) {
-        userInfo.setUserRole(0);
-//        Integer integer = userInfoService.insertUserInfo(userInfo);
-//        return WebResponse.success("注册成功");
-        return WebResponse.error(400,"用户名已存在");
+        //先查询
+        UserInfo userInfo1=new UserInfo();
+        userInfo1.setUserName(userInfo.getUserName());
+        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo1);
+        if(userInfos.size()>0){
+            return WebResponse.error(400,"用户名已存在");
+        }else{
+            userInfo.setUserRole(0);
+            Integer integer = userInfoService.insertUserInfo(userInfo);
+            return WebResponse.success("注册成功");
+        }
     }
 
     /**
@@ -64,26 +68,16 @@ public class UserController {
      */
     @RequestMapping(value = "/selectByUserInfo", method = RequestMethod.POST)
     @ResponseBody
-    public WebResponse selectByUserInfo(@RequestBody UserInfo userInfo) {
-//        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
-
-        List<UserInfo> userInfos=new ArrayList<>();
-        UserInfo userInfo1=new UserInfo();
-        userInfo1.setId(1);
-        userInfo1.setUserName("kfc");
-        userInfo1.setPassword("kfc1111");
-        userInfo1.setUserRole(0);
-
-        UserInfo userInfo2=new UserInfo();
-        userInfo2.setId(2);
-        userInfo2.setUserName("kfc");
-        userInfo2.setPassword("kfc1111");
-        userInfo2.setUserRole(0);
-
-        userInfos.add(userInfo1);
-        userInfos.add(userInfo2);
-
-        PageBean<UserInfo> pageData = new PageBean<>(1, 30, 2);
+    public WebResponse selectByUserInfo(@RequestBody SelectByUserInfoQo selectByUserInfoQo) {
+        Integer pageNow = selectByUserInfoQo.getPageNow();
+        Integer pageSize = selectByUserInfoQo.getPageSize();
+        Integer countNums = userInfoService.selectAll().size();
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUserRole(0);
+        userInfo.setUserName(selectByUserInfoQo.getUserName());
+        PageHelper.startPage(pageNow, pageSize);
+        List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
+        PageBean<UserInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);
         pageData.setItems(userInfos);
 
         return WebResponse.success(pageData);
@@ -95,7 +89,7 @@ public class UserController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse updateUser(@RequestBody UserInfo userInfo) {
-//        Integer integer = userInfoService.updateUserInfo(userInfo);
+        Integer integer = userInfoService.updateUserInfo(userInfo);
         return WebResponse.success();
     }
 
@@ -105,7 +99,7 @@ public class UserController {
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
     @ResponseBody
     public WebResponse deleteUser(@RequestBody UserInfo userInfo) {
-//        Integer integer = userInfoService.deleteUserInfo(userInfo.getId());
+        Integer integer = userInfoService.deleteUserInfo(userInfo.getId());
         return WebResponse.success();
     }
 
