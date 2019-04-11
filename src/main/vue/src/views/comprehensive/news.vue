@@ -422,6 +422,7 @@ export default {
           let vm = this
            AJAX.deleteNews.r({id:row.id}).then(res=>{
             console.log(res)
+            vm.getPageData()
            })
         },
 

@@ -66,7 +66,7 @@ public class GameController {
 
         List<GameInfoVo> gameInfos=new ArrayList<>();
         GameInfo gameInfo=new GameInfo();
-        gameInfo.setGameName(selectByGameInfoQo.getGameName());
+        gameInfo.setGameName(selectByGameInfoQo.getGameName()==""?null:selectByGameInfoQo.getGameName());
         Integer pageNow = selectByGameInfoQo.getPageNow();
         Integer pageSize = selectByGameInfoQo.getPageSize();
         Integer countNums = gameInfoService.selectAll().size();

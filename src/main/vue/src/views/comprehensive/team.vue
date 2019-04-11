@@ -422,6 +422,7 @@ export default {
           let vm = this
            AJAX.deleteTeam.r({id:row.id}).then(res=>{
             console.log(res)
+            vm.getPageData()
            })
         },
 

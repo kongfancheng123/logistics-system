@@ -423,6 +423,7 @@ export default {
           let vm = this
            AJAX.deleteUser.r({id:row.id}).then(res=>{
             console.log(res)
+            vm.getPageData()
            })
         },
 

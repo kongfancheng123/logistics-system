@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.share.system</groupId>
-    <artifactId>share-system</artifactId>
+    <artifactId>e-sports-system</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 
@@ -156,7 +156,7 @@
     </profiles>
 
     <build>
-        <finalName>data-tool-${project.version}</finalName>
+        <finalName>e-sports-system-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -202,7 +202,7 @@
                     <archive>
                         <manifest>
                             <!--指定main入口-->
-                            <mainClass>com.agioe.tool.data.DataToolApplication</mainClass>
+                            <mainClass>com.eSports.system.data.RunnerApplication</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>

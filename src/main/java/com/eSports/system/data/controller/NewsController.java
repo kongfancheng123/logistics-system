@@ -50,7 +50,7 @@ public class NewsController {
         Integer pageSize = selectByNewsInfoQo.getPageSize();
         Integer countNums = newsInfoService.selectAll().size();
         NewsInfo newsInfo=new NewsInfo();
-        newsInfo.setNewsName(selectByNewsInfoQo.getNewsName());
+        newsInfo.setNewsName(selectByNewsInfoQo.getNewsName()==""?null:selectByNewsInfoQo.getNewsName());
         PageHelper.startPage(pageNow, pageSize);
         List<NewsInfo> newsInfos = newsInfoService.selectByNewsInfo(newsInfo);
         PageBean<NewsInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);

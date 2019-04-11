@@ -71,10 +71,12 @@ public class UserController {
     public WebResponse selectByUserInfo(@RequestBody SelectByUserInfoQo selectByUserInfoQo) {
         Integer pageNow = selectByUserInfoQo.getPageNow();
         Integer pageSize = selectByUserInfoQo.getPageSize();
-        Integer countNums = userInfoService.selectAll().size();
+        UserInfo userInfo8=new UserInfo();
+        userInfo8.setUserRole(0);
+        Integer countNums = userInfoService.selectByUserInfo(userInfo8).size();
         UserInfo userInfo=new UserInfo();
         userInfo.setUserRole(0);
-        userInfo.setUserName(selectByUserInfoQo.getUserName());
+        userInfo.setUserName(selectByUserInfoQo.getUserName()==""?null:selectByUserInfoQo.getUserName());
         PageHelper.startPage(pageNow, pageSize);
         List<UserInfo> userInfos = userInfoService.selectByUserInfo(userInfo);
         PageBean<UserInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);

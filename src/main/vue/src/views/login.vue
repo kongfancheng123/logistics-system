@@ -2,9 +2,8 @@
   <el-container>
     <!-- el-header -->
     <el-header>
-      <img src="@/assets/logo.png"
-           width="300">
-      <span>ATM8000</span>数据模拟平台666
+
+      <span>电子竞技管理平台</span>
     </el-header>
     <router-view></router-view>
     <!-- el-main -->

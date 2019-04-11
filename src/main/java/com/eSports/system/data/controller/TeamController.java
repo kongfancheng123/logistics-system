@@ -48,7 +48,7 @@ public class TeamController {
         Integer pageSize = selectByTeamInfoQo.getPageSize();
         Integer countNums = teamInfoService.selectAll().size();
         TeamInfo teamInfo=new TeamInfo();
-        teamInfo.setTeamName(selectByTeamInfoQo.getTeamName());
+        teamInfo.setTeamName(selectByTeamInfoQo.getTeamName()==""?null:selectByTeamInfoQo.getTeamName());
         PageHelper.startPage(pageNow, pageSize);
         List<TeamInfo> teamInfos = teamInfoService.selectByTeamInfo(teamInfo);
         PageBean<TeamInfo> pageData = new PageBean<>(pageNow, pageSize, countNums);

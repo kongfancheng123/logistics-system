@@ -4,8 +4,7 @@
     <el-header id="salfmenu">
       <!-- leftbar -->
       <div class="leftbar">
-        <img src="@/assets/logo.png"
-             width="300">
+
 
         <!-- el-menu -->
         <el-menu router
@@ -24,12 +23,18 @@
                                     route>
             <i class="el-icon-picture"></i>新闻</el-menu-item>
 
-          <el-menu-item index="/user"   v-if='user.isSuperUser===1'
+          <el-menu-item index="/user"   v-if='user.userRole===1'
                                                route>
              <i class="el-icon-picture"></i>用户</el-menu-item>
 
         </el-menu>
       </div>
+
+      <div class="rightbar">
+                                  <el-button type="primary"
+                                              class="cancle"
+                                              @click="cancle()">注销</el-button>
+       </div>
 
     </el-header>
 
@@ -61,7 +66,12 @@ export default {
                     } else{
                      return null;}
 
-                }
+                },
+          cancle(){
+                 let vm = this
+                 vm.$router.push({ path: '/login' })
+
+          }
 
       }
 }
